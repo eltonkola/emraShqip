@@ -120,14 +120,14 @@ fun ProfileCard(
                 Text(
                     text = emri.emri,
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 68.sp,
+                    fontSize = 62.sp,
                     modifier = Modifier.padding(16.dp)
                 )
 
                 Text(
                     text = mbiemri,
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = 68.sp,
+                    fontSize = 62.sp,
                     modifier = Modifier.padding(16.dp)
                 )
 

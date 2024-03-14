@@ -21,8 +21,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.eltonkola.emrashqip.data.Emri
 import com.eltonkola.emrashqip.data.FEMALE
 import com.eltonkola.emrashqip.data.MALE
@@ -40,7 +42,7 @@ fun NamesScreen( viewModel: MainAppViewModel) {
 
         var gjithsej = remember { mutableStateOf(0) }
         var aktual = remember { mutableStateOf(0) }
-
+        val lastName = viewModel.lastName.collectAsState()
         var progress by remember {  mutableStateOf(0.0f) }
 
         LaunchedEffect(key1 = emrat) {
@@ -64,6 +66,7 @@ fun NamesScreen( viewModel: MainAppViewModel) {
                 //   key =  Emri::id
             ) { emri ->
                 OptionRow(
+                    mbiemri = lastName.value,
                     emri = emri,
                     onFemaleClick = {
                         scope.launch {
@@ -95,6 +98,7 @@ fun calculatePercentage(total: Int, completion: Int): Float {
 
 @Composable
 fun OptionRow(
+    mbiemri: String,
     emri: Emri,
     onFemaleClick: () -> Unit = {},
     onMaleClick: () -> Unit = {},
@@ -102,15 +106,21 @@ fun OptionRow(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 10.dp)
+            .padding(2.dp)
     ) {
-        Row (modifier = Modifier.fillMaxWidth()) {
-            Text(text = emri.emri)
-
-            Text(text = emri.popularity.toString())
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "${emri.emri} $mbiemri",
+                fontSize = 20.sp
+            )
 
             Spacer(modifier = Modifier.weight(1f))
-
+            Text(text = "[${emri.popularity}] ")
             Button(
                 modifier = Modifier,
                 onClick = onFemaleClick,
